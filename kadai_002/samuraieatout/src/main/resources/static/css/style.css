@@ -1,0 +1,70 @@
+/* 基本の本文用フォント */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+a {
+    text-decoration: none;
+    color: darkorange;
+}
+
+/* HTML全体をflexで縦方向にレイアウト */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* mainが自動的に伸縮するように設定 */
+main {
+  flex: 1;
+  padding-bottom: 20px; /* 任意：見た目の余白が必要なら */
+}
+
+/* フッターは固定せず通常のフローに沿って配置 */
+footer {
+  width: 100%;
+  height: 50px;
+  position: static;
+  background-color: #f8f9fa; /* Bootstrapに近い色合い */
+  text-align: center;
+  padding: 10px;
+}
+
+
+/*トップページ*/
+#samurai-big-image{
+  height: 300px;
+  width: 100vw; /*画面縮小時に発生する画像右側の余白を解消*/
+  overflow: hidden;
+}
+#samurai-big-image img{
+  width: 100%;
+}
+#samurai-card-image-home{
+	width: 100%;
+	height: 100%;
+	max-height: 120px;
+	object-fit: cover;
+}
+#samurai-card-home{
+	min-height: 150px;
+}
+
+/*店舗検索結果画面*/
+#samurai-card-image-search-result{
+	width: 100%;
+	height: 100%;
+	max-height: 240px;
+	object-fit: cover;
+}
+#samurai-card-search-result{
+	min-height: 240px;
+}
+/* 店舗詳細画面 */
+#samurai-details-image{
+  max-height: 500px;
+  object-fit: cover;
+}
+

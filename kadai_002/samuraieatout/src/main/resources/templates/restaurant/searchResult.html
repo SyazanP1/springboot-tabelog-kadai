@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="~{fragment :: meta}"></div>
+
+<div th:replace="~{fragment :: link}"></div>
+
+<body>
+
+	<div th:replace="~{fragment :: header}"></div>
+	<main>
+		<!-- 検索フォーム -->
+		<div th:replace="~{fragment :: searchForm}"></div>
+
+		<div class="container">
+			<div class="row">
+				<!-- 店舗表示 -->
+				<div th:each="restaurant : ${pageRestaurant}">
+					<a th:href="@{/restaurant/details/__${restaurant.getId()}__}"
+						class="link-dark">
+						<div class="card h-100 d-flex" id="samurai-card-search-result">
+							<div class="row g-0 h-100">	<!-- rowはデフォルトで-15px相当のgutterがつくため。h-100によりカードと画像の余白を解消。 -->
+								<div class="col-4">
+									<img th:src="@{/images/__${restaurant.getImageName()}__}"
+										class="card-img-top" id="samurai-card-image-search-result" alt="店舗画像">
+								</div>
+								<div class="col-8">
+									<div class="card-body">
+										<div class="card-title">
+											<p th:text="${restaurant.getName()}"></p>
+										</div>
+										<div class="card-text">
+											<p th:text="${restaurant.getAddress()}"></p> <p
+												th:text="${restaurant.getFetures}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<!-- ページネーション -->
+			<div th:if="${pageRestaurant.getTotalPages() > 1}"
+				class="d-flex justify-content-center">
+				<ul class="pagination">
+					<li class="page-item"><a th:if="${pageRestaurant.isFirst()}"
+						class="page-link disabled">前</a> <a
+						th:unless="${pageRestaurant.isFirst()}"
+						th:href="@{/restaurant/search(page = ${pageRestaurant.getNumber()-1}, keywordName = ${keywordName}, keyidCategory = ${keyidCategory})}"
+						class="page-link">前</a></li>
+					<li
+						th:each="i : ${#numbers.sequence(0, pageRestaurant.getTotalPages()-1)}"
+						class="page-item"><a
+						th:if="${i == pageRestaurant.getNumber()}" th:text="${i+1}"
+						th:href="@{/restaurant/search(page = ${i}, keywordName = ${keywordName}, keyidCategory = ${keyidCategory})}"
+						class="page-link disabled"></a> <a
+						th:unless="${i == pageRestaurant.getNumber()}" th:text="${i+1}"
+						th:href="@{/restaurant/search(page = ${i}, keywordName = ${keywordName}, keyidCategory = ${keyidCategory})}"
+						class="page-link"></a></li>
+					<li class="page-item"><a th:if="${pageRestaurant.isLast()}"
+						class="page-link disabled">次</a> <a
+						th:unless="${pageRestaurant.isLast()}"
+						th:href="@{/restaurant/search(page = ${pageRestaurant.getNumber()+1}, keywordName = ${keywordName}, keyidCategory = ${keyidCategory})}"
+						class="page-link">次</a></li>
+				</ul>
+			</div>
+		</div>
+	</main>
+	<div th:replace="~{fragment :: script}"></div>
+	<div th:replace="~{fragment :: footer}"></div>
+</body>
+
+</html>

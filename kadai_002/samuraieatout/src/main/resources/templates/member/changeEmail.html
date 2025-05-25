@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="~{fragment :: meta}"></div>
+
+<div th:replace="~{fragment :: link}"></div>
+<body>
+	<div th:replace="~{fragment :: header}"></div>
+	<main>
+		<!-- メールアドレス変更 -->
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-4 py-4">
+					<div class="text-center">
+						<h2>メールアドレス変更</h2>
+						<p>
+							設定したいメールアドレスを入力してください。<br>認証用メールを送信します。
+						</p>
+					</div>
+					<div>
+						<form th:action="@{/member/changeEmail/input}" method="post"
+							th:object="${changeEmailForm}">
+							<div class="form-group mb-4">
+								<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+									class="text-danger small"></div>
+								<input type="text" class="form-control" th:field="*{email}">
+							</div>
+							<div class="form-group d-flex justify-content-center">
+								<button type="submit" class="btn btn-warning w-50">送信</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div th:replace="~{fragment :: script}"></div>
+</body>
+
+</html>
